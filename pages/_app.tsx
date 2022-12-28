@@ -1,7 +1,7 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import MusicPlayerLayout from '@components/MusicPlayerLayout'
 import type { AppProps } from 'next/app'
 import 'reset-css'
-import PlayerLayout from '../components/PlayerLayout'
 
 const theme = extendTheme({
   colors: {
@@ -32,9 +32,9 @@ const theme = extendTheme({
 })
 const App = ({ Component, pageProps }: AppProps) => (
   <ChakraProvider theme={theme}>
-    <PlayerLayout>
+    <MusicPlayerLayout>
       <Component {...pageProps} />
-    </PlayerLayout>
+    </MusicPlayerLayout>
   </ChakraProvider>
 )
 
