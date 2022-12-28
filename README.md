@@ -9,8 +9,8 @@
 - [x] ~~_Lesson 01_~~ [2022-12-28]
 - [x] ~~_Lesson 02_~~ [2022-12-28]
 - [x] ~~_Lesson 03_~~ [2022-12-28]
-- [ ] Lesson 04
-- [ ] Lesson 05
+- [x] ~~_Lesson 04_~~ [2022-12-28]
+- [x] ~~_Lesson 05_~~ [2022-12-28]
 - [ ] Lesson 06
 - [ ] Lesson 07
 - [ ] Lesson 08
@@ -66,3 +66,4 @@
 
 - Cool vim trick. `<g C-A>` increment numbers in a visual code block
 - `Y#p` copies a line # times and paste below
+- In Visual mode, hit `at` or `it` to highlight and html tag outer/inner content
