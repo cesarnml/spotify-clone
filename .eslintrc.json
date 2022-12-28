@@ -44,7 +44,8 @@
       {
         "singleQuote": true,
         "semi": false,
-        "parser": "flow"
+        "parser": "flow",
+        "printWidth": 120
       }
     ]
   }
