@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Spotify Clone Notes
 
-## Getting Started
+- [Spotify Clone Notes](#spotify-clone-notes)
+  - [Lessons](#lessons)
+  - [Notes](#notes)
 
-First, run the development server:
+## Lessons
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- [x] ~~_Lesson 01_~~ [2022-12-28]
+- [x] ~~_Lesson 02_~~ [2022-12-28]
+- [x] ~~_Lesson 03_~~ [2022-12-28]
+- [ ] Lesson 04
+- [ ] Lesson 05
+- [ ] Lesson 06
+- [ ] Lesson 07
+- [ ] Lesson 08
+- [ ] Lesson 09
+- [ ] Lesson 10
+- [ ] Lesson 11
+- [ ] Lesson 12
+- [ ] Lesson 13
+- [ ] Lesson 14
+- [ ] Lesson 15
+- [ ] Lesson 16
+- [ ] Lesson 17
+- [ ] Lesson 18
+- [ ] Lesson 19
+- [ ] Lesson 20
+- [ ] Lesson 21
+- [ ] Lesson 22
+- [ ] Lesson 23
+- [ ] Lesson 24
+- [ ] Lesson 25
+- [ ] Lesson 26
+- [ ] Lesson 27
+- [ ] Lesson 28
+- [ ] Lesson 29
+- [ ] Lesson 30
+- [ ] Lesson 31
+- [ ] Lesson 32
+- [ ] Lesson 33
+- [ ] Lesson 34
+- [ ] Lesson 35
+- [ ] Lesson 36
+- [ ] Lesson 37
+- [ ] Lesson 38
+- [ ] Lesson 39
+- [ ] Lesson 40
+- [ ] Lesson 41
+- [ ] Lesson 42
+- [ ] Lesson 43
+- [ ] Lesson 44
+- [ ] Lesson 45
+- [ ] Lesson 46
+- [ ] Lesson 47
+- [ ] Lesson 48
+- [ ] Lesson 49
+- [ ] Lesson 50
+- [ ] Lesson 51
+- [ ] Lesson 52
+- [ ] Lesson 53
+- [ ] Lesson 54
+- [ ] Lesson 55
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Notes
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Cool vim trick. `<g C-A>` increment numbers in a visual code block
+- `Y#p` copies a line # times and paste below
