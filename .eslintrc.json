@@ -1,5 +1,12 @@
 {
-  "extends": ["next/core-web-vitals", "prettier"],
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "env": {
     "browser": true,
@@ -44,8 +51,8 @@
       {
         "singleQuote": true,
         "semi": false,
-        "parser": "flow",
-        "printWidth": 120
+        "printWidth": 120,
+        "trailingComma": "all"
       }
     ]
   }
