@@ -9,6 +9,7 @@ specifiers:
   '@emotion/react': ^11.10.5
   '@emotion/styled': ^11.10.5
   '@prisma/client': ^3.6.0
+  '@types/bcrypt': ^5.0.0
   '@types/node': ^18.11.18
   '@types/react': 17.0.0
   '@typescript-eslint/eslint-plugin': ^5.6.0
@@ -71,6 +72,7 @@ dependencies:
   typescript: 4.9.4
 
 devDependencies:
+  '@types/bcrypt': 5.0.0
   '@types/react': 17.0.0
   '@typescript-eslint/eslint-plugin': 5.47.1_sy6dby76nquky4q264wxovwdji
   '@typescript-eslint/parser': 5.47.1_rixfb63bvt6dagk3yimdtzfu64
@@ -1670,6 +1672,12 @@ packages:
 
   /@tsconfig/node16/1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
+    dev: true
+
+  /@types/bcrypt/5.0.0:
+    resolution: {integrity: sha512-agtcFKaruL8TmcvqbndlqHPSJgsolhf/qPWchFlgnW1gECTN/nKbFcoFnvKAQRFfKbh+BO6A3SWdJu9t+xF3Lw==}
+    dependencies:
+      '@types/node': 18.11.18
     dev: true
 
   /@types/json-schema/7.0.11:
