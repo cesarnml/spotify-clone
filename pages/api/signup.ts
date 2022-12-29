@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import cookie from 'cookie'
 import prisma from '@lib/prima'
+import bcrypt from 'bcrypt'
+import cookie from 'cookie'
+import jwt from 'jsonwebtoken'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 type ErrorMessage = {
   error: string
@@ -11,6 +11,7 @@ type ErrorMessage = {
 type Data = {
   message: string
 }
+
 const cookieAndTokenMaxAge = 8 * 60 * 60 // 8 hours
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data | ErrorMessage>) => {
