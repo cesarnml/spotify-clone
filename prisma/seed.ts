@@ -54,6 +54,7 @@ const run = async () => {
 }
 
 run()
+  // eslint-disable-next-line no-console
   .catch((err) => console.error(err))
   .finally(async () => {
     await prisma.$disconnect()
