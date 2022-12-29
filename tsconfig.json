@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["components/*"],
+      "@lib/*": ["lib/*"],
       "@pages/*": ["pages/*"],
       "@styles/*": ["styles/*"]
     },
@@ -22,6 +23,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["process.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

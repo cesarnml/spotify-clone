@@ -10,6 +10,8 @@ specifiers:
   '@emotion/styled': ^11.10.5
   '@prisma/client': ^3.6.0
   '@types/bcrypt': ^5.0.0
+  '@types/cookie': ^0.5.1
+  '@types/jsonwebtoken': ^9.0.0
   '@types/node': ^18.11.18
   '@types/react': 17.0.0
   '@typescript-eslint/eslint-plugin': ^5.6.0
@@ -73,6 +75,8 @@ dependencies:
 
 devDependencies:
   '@types/bcrypt': 5.0.0
+  '@types/cookie': 0.5.1
+  '@types/jsonwebtoken': 9.0.0
   '@types/react': 17.0.0
   '@typescript-eslint/eslint-plugin': 5.47.1_sy6dby76nquky4q264wxovwdji
   '@typescript-eslint/parser': 5.47.1_rixfb63bvt6dagk3yimdtzfu64
@@ -1680,12 +1684,22 @@ packages:
       '@types/node': 18.11.18
     dev: true
 
+  /@types/cookie/0.5.1:
+    resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: true
+
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: true
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    dev: true
+
+  /@types/jsonwebtoken/9.0.0:
+    resolution: {integrity: sha512-mM4TkDpA9oixqg1Fv2vVpOFyIVLJjm5x4k0V+K/rEsizfjD7Tk7LKk3GTtbB7KCfP0FEHQtsZqFxYA0+sijNVg==}
+    dependencies:
+      '@types/node': 18.11.18
     dev: true
 
   /@types/lodash.mergewith/4.6.6:
