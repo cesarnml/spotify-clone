@@ -48,7 +48,6 @@ dependencies:
   '@emotion/react': 11.10.5_ua222vhhx764usfhpvux7obnd4
   '@emotion/styled': 11.10.5_bagtxocpkwpoq5haq2rvahouse
   '@prisma/client': 3.15.2_prisma@3.15.2
-  '@types/node': 18.11.18
   bcrypt: 5.1.0
   cookie: 0.4.2
   easy-peasy: 5.2.0_3krxapzihwfs4hw3v2bv37pgy4
@@ -69,6 +68,7 @@ devDependencies:
   '@types/bcrypt': 5.0.0
   '@types/cookie': 0.5.1
   '@types/jsonwebtoken': 9.0.0
+  '@types/node': 18.11.18
   '@types/react': 17.0.0
   '@typescript-eslint/eslint-plugin': 5.47.1_rixfb63bvt6dagk3yimdtzfu64
   eslint: 8.2.0
