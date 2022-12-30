@@ -17,6 +17,7 @@ type Data = {
 
 const handler = nextConnect<NextApiRequest, NextApiResponse<Data | ErrorMessage>>({
   onError: (err, req, res) => {
+    // eslint-disable-next-line no-console
     console.error(err.stack)
     res.status(500).end('Something broke!')
   },
