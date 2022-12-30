@@ -74,9 +74,9 @@ handler.post(async (req, res) => {
       }),
     )
 
-    res.status(200).json({ message: 'Sign in successful' })
+    return res.status(200).json({ message: 'Sign in successful' })
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' })
+    return res.status(500).json({ message: 'Internal server error' })
   }
 })
 
