@@ -30,11 +30,17 @@ const theme = extendTheme({
     },
   },
 })
+
 const App = ({ Component, pageProps }: AppProps) => (
   <ChakraProvider theme={theme}>
-    <MusicPlayerLayout>
+    {/* //TODO: Is this kosher? */}
+    {Component.authPage ? (
       <Component {...pageProps} />
-    </MusicPlayerLayout>
+    ) : (
+      <MusicPlayerLayout>
+        <Component {...pageProps} />
+      </MusicPlayerLayout>
+    )}
   </ChakraProvider>
 )
 

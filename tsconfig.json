@@ -23,6 +23,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["process.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["custom-env.d.ts", "process.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
