@@ -7,7 +7,7 @@ const NavMenu = () => {
     <Box marginBottom="20px">
       <List spacing={2}>
         {navMenu.map((item) => (
-          <MenuItem item={item} />
+          <MenuItem item={item} key={item.name} />
         ))}
       </List>
     </Box>

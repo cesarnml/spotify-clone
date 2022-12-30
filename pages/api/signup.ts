@@ -14,7 +14,7 @@ type Data = {
 
 const cookieAndTokenMaxAge = 8 * 60 * 60 // 8 hours
 
-export default async (req: NextApiRequest, res: NextApiResponse<Data | ErrorMessage>) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<Data | ErrorMessage>) => {
   const salt = bcrypt.genSaltSync()
   const { email, password, verifyPassword } = req.body
 
@@ -66,3 +66,5 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data | ErrorMess
     return res.status(401).json({ error: 'E-mail already in use.' })
   }
 }
+
+export default handler
