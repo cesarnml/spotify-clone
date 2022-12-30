@@ -2,6 +2,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import MusicPlayerLayout from '@components/MusicPlayerLayout'
 import type { AppProps } from 'next/app'
 import { Router } from 'next/router'
+import { Fragment } from 'react'
 import 'reset-css'
 
 const theme = extendTheme({
@@ -32,19 +33,18 @@ const theme = extendTheme({
   },
 })
 
-const isAuthPage = (router: Router) => router.pathname.includes('/auth')
+const isRootLayoutNeeded = (router: Router) => router.pathname.includes('/auth')
 
-const App = ({ Component, pageProps, router }: AppProps) => (
-  <ChakraProvider theme={theme}>
-    {/* //TODO: Is this kosher? */}
-    {isAuthPage(router) ? (
-      <Component {...pageProps} />
-    ) : (
-      <MusicPlayerLayout>
+const App = ({ Component, pageProps, router }: AppProps) => {
+  const LayoutOrFragment = isRootLayoutNeeded(router) ? MusicPlayerLayout : Fragment
+
+  return (
+    <ChakraProvider theme={theme}>
+      <LayoutOrFragment>
         <Component {...pageProps} />
-      </MusicPlayerLayout>
-    )}
-  </ChakraProvider>
-)
+      </LayoutOrFragment>
+    </ChakraProvider>
+  )
+}
 
 export default App
