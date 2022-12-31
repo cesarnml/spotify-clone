@@ -14,20 +14,17 @@ const AuthForm = ({ mode }: Props) => {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
-    auth(mode, { email, password })
-      .then((res) => res.json())
-      .then(({ data }) => {
-        router.push('/')
-      })
-      .finally(() => setIsLoading(false))
+    await auth(mode, { email, password })
+    setIsLoading(false)
+    router.push('/')
   }
 
   return (
-    <Box height="100vh" width="100vw" bg="black" color="whites">
-      <Flex justify="center" align="center" height="100px">
+    <Box height="100vh" width="100vw" bg="black" color="white">
+      <Flex justify="center" align="center" height="100px" borderBottom="1px solid white">
         <Logo />
       </Flex>
       <Flex justify="center" align="center" height="calc(100vh - 100px)">
@@ -47,7 +44,16 @@ const AuthForm = ({ mode }: Props) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" bg="green.500" isLoading={isLoading}>
+            <Button
+              type="submit"
+              bg="green.500"
+              isLoading={isLoading}
+              sx={{
+                '&:hover': {
+                  bg: 'green.300',
+                },
+              }}
+            >
               {mode}
             </Button>
           </form>

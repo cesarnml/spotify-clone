@@ -1,4 +1,4 @@
-import prisma from '@lib/prima'
+import prisma from '@lib/prisma'
 import { User } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import cookie from 'cookie'
