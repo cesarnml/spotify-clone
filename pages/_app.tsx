@@ -33,7 +33,7 @@ const theme = extendTheme({
   },
 })
 
-const isRootLayoutNeeded = (router: Router) => router.pathname.includes('/auth')
+const isRootLayoutNeeded = (router: Router) => !router.pathname.includes('/auth')
 
 const App = ({ Component, pageProps, router }: AppProps) => {
   const LayoutOrFragment = isRootLayoutNeeded(router) ? MusicPlayerLayout : Fragment

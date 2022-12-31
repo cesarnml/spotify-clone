@@ -7,5 +7,5 @@ export const auth = (
     password: string
   },
 ) => {
-  return fetcher(`/${mode}`, body)
+  return fetcher(`/auth/${mode}`, body)
 }

@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, User } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import cookie from 'cookie'
 import jwt from 'jsonwebtoken'
@@ -13,16 +13,17 @@ type ErrorMessage = {
 
 type Data = {
   message: string
+  data?: Omit<User, 'password'> & { iat: number }
 }
 
 const handler = nextConnect<NextApiRequest, NextApiResponse<Data | ErrorMessage>>({
   onError: (err, req, res) => {
     // eslint-disable-next-line no-console
     console.error(err.stack)
-    res.status(500).end('Something broke!')
+    res.status(500).end({ error: 'Something broke!' })
   },
   onNoMatch: (req, res) => {
-    res.status(404).end('No matching api route.')
+    res.status(404).end({ error: 'No matching route.' })
   },
 })
 
@@ -33,19 +34,19 @@ handler.post(async (req, res) => {
 
     // Validate input
     if (!email || !password) {
-      return res.status(400).json({ message: 'Email and password are required' })
+      return res.status(400).json({ error: 'Email and password are required' })
     }
 
     // Check if user with provided email exists
     const user = await prisma.user.findUnique({ where: { email } })
     if (!user) {
-      return res.status(400).json({ message: 'Incorrect email or password' })
+      return res.status(400).json({ error: 'Incorrect email or password' })
     }
 
     // Check if password is correct
     const passwordMatch = await bcrypt.compare(password, user.password)
     if (!passwordMatch) {
-      return res.status(400).json({ message: 'Incorrect email or password' })
+      return res.status(400).json({ error: 'Incorrect email or password' })
     }
 
     // Generate JWT
@@ -74,9 +75,9 @@ handler.post(async (req, res) => {
       }),
     )
 
-    return res.status(200).json({ message: 'Sign in successful' })
+    return res.status(200).json({ message: 'Sign in successful', data: payload })
   } catch (error) {
-    return res.status(500).json({ message: 'Internal server error' })
+    return res.status(500).json({ error: 'Internal server error' })
   }
 })
 

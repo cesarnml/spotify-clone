@@ -2,7 +2,7 @@ import { Box, Divider } from '@chakra-ui/layout'
 import MusicMenu from './MusicMenu'
 import NavMenu from './NavMenu'
 import PlayList from './PlayList'
-import SidebarLogo from './SidebarLogo'
+import Logo from './Logo'
 
 const Sidebar = () => {
   return (
@@ -17,7 +17,7 @@ const Sidebar = () => {
       position="absolute"
     >
       <Box paddingTop="20px" display="flex" flexDirection="column" height="100%">
-        <SidebarLogo />
+        <Logo />
         <NavMenu />
         <MusicMenu />
         <Divider color="gray.800" />

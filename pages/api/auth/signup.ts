@@ -1,4 +1,5 @@
 import prisma from '@lib/prima'
+import { User } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import cookie from 'cookie'
 import jwt from 'jsonwebtoken'
@@ -10,17 +11,14 @@ type ErrorMessage = {
 
 type Data = {
   message: string
+  data: Omit<User, 'password'> & { iat: number }
 }
 
 const cookieAndTokenMaxAge = 8 * 60 * 60 // 8 hours
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data | ErrorMessage>) => {
   const salt = bcrypt.genSaltSync()
-  const { email, password, verifyPassword } = req.body
-
-  if (password !== verifyPassword) {
-    return res.status(401).json({ error: 'Passwords must match.' })
-  }
+  const { email, password } = req.body
 
   if (!email || !password) {
     return res.status(401).json({ error: 'Email and password are required.' })
@@ -34,20 +32,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data | ErrorMes
       },
     })
 
-    const token = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-        iat: Date.now(),
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: cookieAndTokenMaxAge,
-      },
-    )
+    const payload = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      iat: Date.now(),
+    }
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: cookieAndTokenMaxAge,
+    })
 
     res.setHeader(
       'Set-Cookie',
@@ -61,6 +57,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data | ErrorMes
     )
     return res.status(201).json({
       message: 'Sign in successful.',
+      data: payload,
     })
   } catch (e) {
     return res.status(401).json({ error: 'E-mail already in use.' })
