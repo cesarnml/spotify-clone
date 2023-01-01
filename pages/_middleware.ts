@@ -7,7 +7,7 @@ const middleware = (req: NextRequest) => {
     const token = req.cookies.TRAX_ACCESS_TOKEN
 
     if (!token) {
-      return NextResponse.redirect('/auth/signin', 302)
+      return NextResponse.redirect('/auth/signin')
     }
     return NextResponse.next()
   }
