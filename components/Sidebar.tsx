@@ -1,8 +1,8 @@
 import { Box, Divider } from '@chakra-ui/layout'
+import Logo from './Logo'
 import MusicMenu from './MusicMenu'
 import NavMenu from './NavMenu'
 import PlayList from './PlayList'
-import Logo from './Logo'
 
 const Sidebar = () => {
   return (
