@@ -6,7 +6,6 @@ import Link from 'next/link'
 
 const PlayList = () => {
   const { playlists: playlistList } = usePlaylist()
-  console.log('playlistList:', playlistList)
 
   return (
     <Box flex="1 1 auto" overflowY="auto" paddingY="20px">

@@ -9,8 +9,8 @@ const middleware = (req: NextRequest) => {
     if (!token) {
       return NextResponse.redirect('/auth/signin')
     }
-    return NextResponse.next()
   }
+  return NextResponse.next()
 }
 
 export default middleware
