@@ -1,7 +1,12 @@
 import GradientLayout from '@components/GradientLayout'
+import prisma from '@lib/prisma'
+import { Artist } from '@prisma/client'
 import Head from 'next/head'
 
-const Home = () => {
+type Props = {
+  artists: Artist[]
+}
+const Home = ({ artists }: Props) => {
   return (
     <>
       <Head>
@@ -18,10 +23,25 @@ const Home = () => {
         description="15 public playlist"
         image="https://dl.dropboxusercontent.com/s/bgiv0ssz3xpotz9/peep.png?dl=0"
       >
-        <div>home page</div>
+        <div>
+          {artists.map((artist) => (
+            <div key={artist.id}>{artist.name}</div>
+          ))}
+        </div>
       </GradientLayout>
     </>
   )
+}
+
+export const getServerSideProps = async () => {
+  const artists = await prisma.artist.findMany({ select: { id: true, name: true } })
+  console.log('artists:', artists)
+
+  return {
+    props: {
+      artists,
+    },
+  }
 }
 
 export default Home
