@@ -13,7 +13,7 @@ const PlayList = () => {
         {playlistList?.map((playlist) => (
           <ListItem paddingX="20px" key={playlist.id}>
             <LinkBox>
-              <Link href="/" passHref>
+              <Link href={`/playlist/${playlist.id}`} passHref>
                 <LinkOverlay>{playlist.name}</LinkOverlay>
               </Link>
             </LinkBox>

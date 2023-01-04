@@ -20,3 +20,5 @@ export const validateRoute = (handler: NextApiHandler) => {
     }
   }
 }
+
+export const validateToken = (token: string) => jwt.verify(token, process.env.JWT_SECRET) as User
