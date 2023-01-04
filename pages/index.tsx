@@ -2,13 +2,48 @@ import { Box, Flex, Text } from '@chakra-ui/layout'
 import { Image } from '@chakra-ui/react'
 import GradientLayout from '@components/GradientLayout'
 import prisma from '@lib/prisma'
-import { Artist } from '@prisma/client'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import jwt from 'jsonwebtoken'
+import { Artist, Playlist, User } from '@prisma/client'
 
 type Props = {
-  artists: Artist[]
+  user: Partial<User> & { playlists: Partial<Playlist>[] }
+  artists: Partial<Artist>[]
 }
-const Home = ({ artists }: Props) => {
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const token = context.req.cookies.TRAX_ACCESS_TOKEN
+  const { id } = jwt.verify(token, process.env.JWT_SECRET) as User
+
+  const user = await prisma.user.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      email: true,
+      playlists: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  })
+
+  const artists = await prisma.artist.findMany({ select: { id: true, name: true } })
+
+  return {
+    props: {
+      artists,
+      user,
+    },
+  }
+}
+
+const Home = ({ artists, user }: Props) => {
+  const { firstName, lastName, playlists } = user
   return (
     <>
       <Head>
@@ -21,8 +56,8 @@ const Home = ({ artists }: Props) => {
         isRoundedImage
         color="purple"
         subtitle="profile"
-        title="Cesar Mejia"
-        description="15 public playlist"
+        title={`${firstName} ${lastName}`}
+        description={`${playlists.length} public playlist`}
         image="https://dl.dropboxusercontent.com/s/bgiv0ssz3xpotz9/peep.png?dl=0"
       >
         <Box color="white" paddingX="40px">
@@ -47,16 +82,6 @@ const Home = ({ artists }: Props) => {
       </GradientLayout>
     </>
   )
-}
-
-export const getServerSideProps = async () => {
-  const artists = await prisma.artist.findMany({ select: { id: true, name: true } })
-
-  return {
-    props: {
-      artists,
-    },
-  }
 }
 
 export default Home
