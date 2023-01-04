@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/layout'
 import { ReactNode } from 'react'
+import PlayerBar from './PlayerBar'
 import Sidebar from './Sidebar'
 
 type Props = {
@@ -16,7 +17,7 @@ const MusicPlayerLayout = ({ children }: Props) => {
         <Box height="calc(100vh - 100px)">{children}</Box>
       </Box>
       <Box position="absolute" left="0" bottom="0">
-        Player
+        <PlayerBar />
       </Box>
     </Box>
   )

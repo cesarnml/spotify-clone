@@ -41,4 +41,5 @@ const GradientLayout = ({ color, children, image, subtitle, title, description, 
     </Box>
   )
 }
+
 export default GradientLayout

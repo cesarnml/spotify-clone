@@ -1,4 +1,5 @@
 import GradientLayout from '@components/GradientLayout'
+import SongsTable from '@components/SongsTable'
 import { validateToken } from '@lib/auth'
 import prisma from '@lib/prisma'
 import { Artist, Playlist, Song } from '@prisma/client'
@@ -6,7 +7,19 @@ import { GetServerSideProps } from 'next'
 
 export const getServerSideProps: GetServerSideProps<Playlist> = async ({ query, req }) => {
   const token = req.cookies.TRAX_ACCESS_TOKEN
-  const { id: userId } = validateToken(token)
+  let userId
+
+  try {
+    const user = validateToken(token)
+    userId = user.id
+  } catch (error) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/auth/signin',
+      },
+    }
+  }
 
   const playlist = await prisma.playlist.findFirst({
     where: { userId, id: Number(query.id) },
@@ -30,8 +43,8 @@ const getBgColor = (id: number) => {
   return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)]
 }
 type Props = {
-  playlist: Pick<Playlist, 'id' | 'name'> & {
-    songs: Pick<Song, 'id' | 'name' | 'url'>[] & { artists: Pick<Artist, 'id' | 'name'>[] }
+  playlist: Playlist & {
+    songs: Song[] & { artists: Artist[] }
   }
 }
 
@@ -46,7 +59,7 @@ const PlaylistPage = ({ playlist }: Props) => {
       description={`${playlist.songs.length ?? 0} songs`}
       image={`https://picsum.photos/400?random=${playlist.id}`}
     >
-      <div>Hello</div>
+      <SongsTable songs={playlist.songs} />
     </GradientLayout>
   )
 }
