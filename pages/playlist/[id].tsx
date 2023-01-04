@@ -10,20 +10,10 @@ export const getServerSideProps: GetServerSideProps<Playlist> = async ({ query, 
 
   const playlist = await prisma.playlist.findFirst({
     where: { userId, id: Number(query.id) },
-    select: {
-      id: true,
-      name: true,
+    include: {
       songs: {
-        select: {
-          id: true,
-          name: true,
-          url: true,
-          artists: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
+        include: {
+          artists: true,
         },
       },
     },

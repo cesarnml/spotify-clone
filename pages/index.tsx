@@ -18,17 +18,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const user = await prisma.user.findUnique({
     where: { id },
-    select: {
-      id: true,
-      firstName: true,
-      lastName: true,
-      email: true,
-      playlists: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
+    include: {
+      playlists: true,
     },
   })
 
@@ -43,6 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Home = ({ artists, user }: Props) => {
+  console.log('artists:', artists)
   const { firstName, lastName, playlists } = user
   return (
     <>
