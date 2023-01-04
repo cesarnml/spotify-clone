@@ -15,6 +15,7 @@ specifiers:
   '@types/node': ^18.11.18
   '@types/react': 17.0.0
   '@typescript-eslint/eslint-plugin': ^5.6.0
+  babel-plugin-superjson-next: ^0.4.5
   bcrypt: ^5.0.1
   cookie: ^0.4.1
   easy-peasy: ^5.0.4
@@ -27,7 +28,6 @@ specifiers:
   jsonwebtoken: ^8.5.1
   next: 12.0.7
   next-connect: ^0.13.0
-  next-superjson-plugin: ^0.5.2
   prettier: ^2.4.1
   prisma: ^3.6.0
   react: 17.0.2
@@ -35,6 +35,7 @@ specifiers:
   react-howler: ^5.2.0
   react-icons: ^4.3.1
   reset-css: ^5.0.1
+  superjson: ^1.12.1
   swr: ^1.1.1
   ts-node: ^10.4.0
   typescript: ^4.9.4
@@ -48,6 +49,7 @@ dependencies:
   '@emotion/react': 11.10.5_ua222vhhx764usfhpvux7obnd4
   '@emotion/styled': 11.10.5_bagtxocpkwpoq5haq2rvahouse
   '@prisma/client': 3.15.2_prisma@3.15.2
+  babel-plugin-superjson-next: 0.4.5_wb6w333lv5lah3p47jc35bald4
   bcrypt: 5.1.0
   cookie: 0.4.2
   easy-peasy: 5.2.0_3krxapzihwfs4hw3v2bv37pgy4
@@ -56,12 +58,12 @@ dependencies:
   jsonwebtoken: 8.5.1
   next: 12.0.7_minu3cnzmhm3eyimgy6ry7vi4e
   next-connect: 0.13.0
-  next-superjson-plugin: 0.5.2_next@12.0.7
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-howler: 5.2.0
   react-icons: 4.7.1_react@17.0.2
   reset-css: 5.0.1
+  superjson: 1.12.1
   swr: 1.3.0_react@17.0.2
 
 devDependencies:
@@ -2088,6 +2090,20 @@ packages:
       resolve: 1.22.1
     dev: false
 
+  /babel-plugin-superjson-next/0.4.5_wb6w333lv5lah3p47jc35bald4:
+    resolution: {integrity: sha512-k7S99Qpsbi3OSdlCMXEiklzxepM6QbYEIUsrjgSkpx+ksT0iNfdY2r1kCzBK2UjG8fLN6NZEKpDA8XpG2pbDSA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      next: '>=9.0.0'
+      superjson: 1.x
+    dependencies:
+      '@babel/helper-module-imports': 7.18.6
+      '@babel/types': 7.20.7
+      hoist-non-react-statics: 3.3.2
+      next: 12.0.7_minu3cnzmhm3eyimgy6ry7vi4e
+      superjson: 1.12.1
+    dev: false
+
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
@@ -2335,6 +2351,13 @@ packages:
   /cookie/0.4.2:
     resolution: {integrity: sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /copy-anything/3.0.3:
+    resolution: {integrity: sha512-fpW2W/BqEzqPp29QS+MwwfisHCQZtiduTe/m8idFo0xbti9fIZ2WVhAsCv4ggFVH3AgCkVdpoOCtQC6gBrdhjw==}
+    engines: {node: '>=12.13'}
+    dependencies:
+      is-what: 4.1.8
     dev: false
 
   /copy-to-clipboard/3.3.1:
@@ -3608,6 +3631,11 @@ packages:
       call-bind: 1.0.2
     dev: true
 
+  /is-what/4.1.8:
+    resolution: {integrity: sha512-yq8gMao5upkPoGEU9LsB2P+K3Kt8Q3fQFCGyNCWOAnJAMzEXVV9drYb0TXr42TTliLLhKIBvulgAXgtLLnwzGA==}
+    engines: {node: '>=12.13'}
+    dev: false
+
   /isexe/2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
@@ -3894,16 +3922,6 @@ packages:
     resolution: {integrity: sha512-f2G4edY01XomjCECSrgOpb/zzQinJO6Whd8Zds0+rLUYhj5cLwkh6FVvZsQCSSbxSc4k9nCwNuk5NLIhvO1gUA==}
     dependencies:
       trouter: 3.2.0
-    dev: false
-
-  /next-superjson-plugin/0.5.2_next@12.0.7:
-    resolution: {integrity: sha512-k+hetZvvBvzFGxYGULdIZ2Esx0XWlfvXiMa33JW1nRYMp2A7HdU8j4hnM1oMym22bwRpzK9vdryINDLnwfJCwg==}
-    peerDependencies:
-      next: ^13
-      superjson: ^1
-    dependencies:
-      hoist-non-react-statics: 3.3.2
-      next: 12.0.7_minu3cnzmhm3eyimgy6ry7vi4e
     dev: false
 
   /next/12.0.7_minu3cnzmhm3eyimgy6ry7vi4e:
@@ -4786,6 +4804,13 @@ packages:
 
   /stylis/4.1.3:
     resolution: {integrity: sha512-GP6WDNWf+o403jrEp9c5jibKavrtLW+/qYGhFxFrG8maXhwTBI7gLLhiBb0o7uFccWN+EOS9aMO6cGHWAO07OA==}
+    dev: false
+
+  /superjson/1.12.1:
+    resolution: {integrity: sha512-HMTj43zvwW5bD+JCZCvFf4DkZQCmiLTen4C+W1Xogj0SPOpnhxsriogM04QmBVGH5b3kcIIOr6FqQ/aoIDx7TQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      copy-anything: 3.0.3
     dev: false
 
   /supports-color/5.5.0:

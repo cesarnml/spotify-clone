@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   })
 
-  const artists = await prisma.artist.findMany({ select: { id: true, name: true } })
+  const artists = await prisma.artist.findMany({})
 
   return {
     props: {

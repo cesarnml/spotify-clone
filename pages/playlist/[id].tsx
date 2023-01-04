@@ -1,8 +1,8 @@
+import GradientLayout from '@components/GradientLayout'
 import { validateToken } from '@lib/auth'
 import prisma from '@lib/prisma'
-import { Playlist } from '@prisma/client'
+import { Artist, Playlist, Song } from '@prisma/client'
 import { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
 
 export const getServerSideProps: GetServerSideProps<Playlist> = async ({ query, req }) => {
   const token = req.cookies.TRAX_ACCESS_TOKEN
@@ -35,13 +35,29 @@ export const getServerSideProps: GetServerSideProps<Playlist> = async ({ query, 
     },
   }
 }
-
+const getBgColor = (id: number) => {
+  const colors = ['red', 'green', 'blue', 'orange', 'purple', 'gray', 'teal', 'yellow']
+  return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)]
+}
 type Props = {
-  playlist: Playlist
+  playlist: Pick<Playlist, 'id' | 'name'> & {
+    songs: Pick<Song, 'id' | 'name' | 'url'>[] & { artists: Pick<Artist, 'id' | 'name'>[] }
+  }
 }
 
 const PlaylistPage = ({ playlist }: Props) => {
-  const router = useRouter()
-  return <div>{playlist.name}</div>
+  const color = getBgColor(playlist.id)
+
+  return (
+    <GradientLayout
+      color={color}
+      title={playlist.name}
+      subtitle="playlist"
+      description={`${playlist.songs.length ?? 0} songs`}
+      image={`https://picsum.photos/400?random=${playlist.id}`}
+    >
+      <div>Hello</div>
+    </GradientLayout>
+  )
 }
 export default PlaylistPage
