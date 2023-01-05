@@ -54,6 +54,25 @@ const PlayerControls = () => {
           <IconButton outline="none" variant="link" aria-label="repeat" fontSize="24px" icon={<MdOutlineRepeat />} />
         </ButtonGroup>
       </Center>
+      <Box color="gray.600">
+        <Flex justify="center" alignItems="center">
+          <Box width="10%">
+            <Text fontSize="xs">Time</Text>
+          </Box>
+          <Box width="80">
+            {/* eslint-disable-next-line jsx-a11y/aria-proptypes */}
+            <RangeSlider aria-label={['min', 'max']} step={0.1} min={0} max={100} id="player-range">
+              <RangeSliderTrack bg="gray.800">
+                <RangeSliderFilledTrack bg="gray.600" />
+              </RangeSliderTrack>
+              <RangeSliderThumb index={0} />
+            </RangeSlider>
+          </Box>
+          <Box width="10%" textAlign="right">
+            <Text fontSize="xs">Duration</Text>
+          </Box>
+        </Flex>
+      </Box>
     </Box>
   )
 }
