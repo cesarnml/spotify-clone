@@ -1,5 +1,7 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import MusicPlayerLayout from '@components/MusicPlayerLayout'
+import { store } from '@lib/store'
+import { StoreProvider } from 'easy-peasy'
 import type { AppProps } from 'next/app'
 import { Router } from 'next/router'
 import { Fragment } from 'react'
@@ -40,9 +42,11 @@ const App = ({ Component, pageProps, router }: AppProps) => {
 
   return (
     <ChakraProvider theme={theme}>
-      <LayoutOrFragment>
-        <Component {...pageProps} />
-      </LayoutOrFragment>
+      <StoreProvider store={store}>
+        <LayoutOrFragment>
+          <Component {...pageProps} />
+        </LayoutOrFragment>
+      </StoreProvider>
     </ChakraProvider>
   )
 }

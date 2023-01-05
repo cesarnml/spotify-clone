@@ -34,6 +34,9 @@
       }
     ],
     //? Handled by typescript rule-set
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+
+    //? Conflicts with immer pattern
+    "no-param-reassign": "off"
   }
 }
