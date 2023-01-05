@@ -5,7 +5,6 @@ import PlayerControls from './PlayerControls'
 const PlayerBar = () => {
   const songs = useStoreState((state) => state.activeSongs)
   const activeSong = useStoreState((state) => state.activeSong)
-  console.log('activeSong:', activeSong)
 
   return (
     <Box height="100px" width="100vw" bg="gray.900" padding="10px">

@@ -1,44 +1,96 @@
 import {
-  ButtonGroup,
   Box,
+  ButtonGroup,
+  Center,
+  Flex,
   IconButton,
   RangeSlider,
   RangeSliderFilledTrack,
-  RangeSliderTrack,
   RangeSliderThumb,
-  Center,
-  Flex,
+  RangeSliderTrack,
   Text,
 } from '@chakra-ui/react'
-import ReactHowler from 'react-howler'
-import { FC, useEffect, useRef, useState } from 'react'
-import {
-  MdShuffle,
-  MdSkipPrevious,
-  MdSkipNext,
-  MdOutlinePlayCircleFilled,
-  MdOutlinePauseCircleFilled,
-  MdOutlineRepeat,
-} from 'react-icons/md'
+import { formatTime } from '@lib/formatters'
 import { SongWithArtist, useStoreActions } from '@lib/store'
-import { Artist, Song } from '@prisma/client'
+import { FC, useEffect, useRef, useState } from 'react'
+import ReactHowler from 'react-howler'
+import {
+  MdOutlinePauseCircleFilled,
+  MdOutlinePlayCircleFilled,
+  MdOutlineRepeat,
+  MdShuffle,
+  MdSkipNext,
+  MdSkipPrevious,
+} from 'react-icons/md'
 
 type Props = {
   songs: SongWithArtist[]
   activeSong: SongWithArtist | null
 }
 
+const getRandomIndex = (num: number) => {
+  return Math.floor(Math.random() * num)
+}
+
 const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
-  const [isPlaying, setIsPlaying] = useState(true)
+  const setActiveSong = useStoreActions((state) => state.changeActiveSong)
+
+  const [isPlaying, setIsPlaying] = useState(false)
   const [playlistIndex, setPlaylistIndex] = useState(0)
+  const [isSeeking, setIsSeeking] = useState(false)
   const [seek, setSeek] = useState(0.0)
   const [isRepeat, setIsRepeat] = useState(false)
   const [isShuffle, setIsShuffle] = useState(false)
+  const [duration, setDuration] = useState(0)
+
+  const howlerRef = useRef<ReactHowler | null>(null)
+
+  const handleSkipPrevious = () => {
+    setPlaylistIndex((prev) => (prev ? prev - 1 : songs.length - 1))
+  }
+
+  const handleSkipNext = () => {
+    if (isShuffle) {
+      const randomIndex = getRandomIndex(songs.length)
+      if (randomIndex === playlistIndex) {
+        handleSkipNext()
+      }
+      setPlaylistIndex(randomIndex)
+    } else {
+      setPlaylistIndex((prev) => (prev === songs.length - 1 ? 0 : prev + 1))
+    }
+  }
+
+  const onEnd = () => {
+    if (isRepeat) {
+      setSeek(0)
+      howlerRef.current?.seek(0)
+    } else {
+      handleSkipNext()
+    }
+  }
+
+  const onLoad = () => {
+    const songDuration = howlerRef.current?.duration() ?? 0
+    setDuration(songDuration)
+  }
+
+  const onSeek = (e: any) => {
+    setSeek(parseFloat(e[0]))
+    howlerRef.current?.seek(e[0])
+  }
+
+  useEffect(() => {
+    setActiveSong(songs[playlistIndex])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playlistIndex, setActiveSong])
+
+  if (!activeSong) return null
 
   return (
     <Box>
       <Box>
-        <ReactHowler playing={isPlaying} src={activeSong?.url} />
+        <ReactHowler ref={howlerRef} playing={isPlaying} src={activeSong.url} onLoad={onLoad} onEnd={onEnd} />
       </Box>
       <Center color="gray.600">
         <ButtonGroup>
@@ -57,6 +109,7 @@ const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
             aria-label="skip previous"
             fontSize="24px"
             icon={<MdSkipPrevious />}
+            onClick={handleSkipPrevious}
           />
           {isPlaying ? (
             <IconButton
@@ -77,7 +130,14 @@ const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
               onClick={() => setIsPlaying(true)}
             />
           )}
-          <IconButton outline="none" variant="link" aria-label="skip next" fontSize="24px" icon={<MdSkipNext />} />
+          <IconButton
+            onClick={handleSkipNext}
+            outline="none"
+            variant="link"
+            aria-label="skip next"
+            fontSize="24px"
+            icon={<MdSkipNext />}
+          />
           <IconButton
             color={isRepeat ? 'white' : 'gray.600'}
             outline="none"
@@ -95,8 +155,18 @@ const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
             <Text fontSize="xs">Time</Text>
           </Box>
           <Box width="80">
-            {/* eslint-disable-next-line jsx-a11y/aria-proptypes */}
-            <RangeSlider aria-label={['min', 'max']} step={0.1} min={0} max={100} id="player-range">
+            <RangeSlider
+              // eslint-disable-next-line jsx-a11y/aria-proptypes
+              aria-label={['min', 'max']}
+              step={0.1}
+              min={0}
+              max={duration ? Number(duration.toFixed(2)) : 0}
+              id="player-range"
+              onChange={onSeek}
+              value={[seek]}
+              onChangeStart={() => setIsSeeking(true)}
+              onChangeEnd={() => setIsSeeking(false)}
+            >
               <RangeSliderTrack bg="gray.800">
                 <RangeSliderFilledTrack bg="gray.600" />
               </RangeSliderTrack>
@@ -104,7 +174,7 @@ const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
             </RangeSlider>
           </Box>
           <Box width="10%" textAlign="right">
-            <Text fontSize="xs">Duration</Text>
+            <Text fontSize="xs">{formatTime(duration)}</Text>
           </Box>
         </Flex>
       </Box>
