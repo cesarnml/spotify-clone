@@ -11,7 +11,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import ReactHowler from 'react-howler'
-import { useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import {
   MdShuffle,
   MdSkipPrevious,
@@ -21,14 +21,34 @@ import {
   MdOutlineRepeat,
 } from 'react-icons/md'
 import { useStoreActions } from 'easy-peasy'
+import { Song } from '@prisma/client'
 
-const PlayerControls = () => {
+type Props = {
+  songs: Song[]
+  activeSong: Song | null
+}
+
+const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [playlistIndex, setPlaylistIndex] = useState(0)
+  const [seek, setSeek] = useState(0.0)
+  const [isRepeat, setIsRepeat] = useState(false)
+  const [isShuffle, setIsShuffle] = useState(false)
+
   return (
     <Box>
-      <Box>{/* <ReactHowler /> */}</Box>
+      <Box>{/* <ReactHowler playing={isPlaying} src={activeSong?.url} /> */}</Box>
       <Center color="gray.600">
         <ButtonGroup>
-          <IconButton outline="none" variant="link" aria-label="shuffle" fontSize="24px" icon={<MdShuffle />} />
+          <IconButton
+            color={isShuffle ? 'white' : 'gray.600'}
+            onClick={() => setIsShuffle((prev) => !prev)}
+            outline="none"
+            variant="link"
+            aria-label="shuffle"
+            fontSize="24px"
+            icon={<MdShuffle />}
+          />
           <IconButton
             outline="none"
             variant="link"
@@ -36,22 +56,35 @@ const PlayerControls = () => {
             fontSize="24px"
             icon={<MdSkipPrevious />}
           />
-          <IconButton
-            outline="none"
-            variant="link"
-            aria-label="play"
-            fontSize="40px"
-            icon={<MdOutlinePlayCircleFilled />}
-          />
-          <IconButton
-            outline="none"
-            variant="link"
-            aria-label="pause"
-            fontSize="40px"
-            icon={<MdOutlinePauseCircleFilled />}
-          />
+          {isPlaying ? (
+            <IconButton
+              outline="none"
+              variant="link"
+              aria-label="pause"
+              fontSize="40px"
+              icon={<MdOutlinePauseCircleFilled />}
+              onClick={() => setIsPlaying(false)}
+            />
+          ) : (
+            <IconButton
+              outline="none"
+              variant="link"
+              aria-label="play"
+              fontSize="40px"
+              icon={<MdOutlinePlayCircleFilled />}
+              onClick={() => setIsPlaying(true)}
+            />
+          )}
           <IconButton outline="none" variant="link" aria-label="skip next" fontSize="24px" icon={<MdSkipNext />} />
-          <IconButton outline="none" variant="link" aria-label="repeat" fontSize="24px" icon={<MdOutlineRepeat />} />
+          <IconButton
+            color={isRepeat ? 'white' : 'gray.600'}
+            outline="none"
+            variant="link"
+            aria-label="repeat"
+            fontSize="24px"
+            icon={<MdOutlineRepeat />}
+            onClick={() => setIsRepeat((prev) => !prev)}
+          />
         </ButtonGroup>
       </Center>
       <Box color="gray.600">
