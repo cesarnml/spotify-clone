@@ -1,11 +1,23 @@
-import { Song } from '@prisma/client'
-import { createStore, action, Action } from 'easy-peasy'
+import { Artist, Song } from '@prisma/client'
+import { createStore, action, Action, createTypedHooks } from 'easy-peasy'
+
+export type SongWithArtist = Song & { artists: Artist }
+
+type SongsModal = {
+  activeSongs: SongWithArtist[]
+  changeActiveSongs: Action<SongsModal, SongWithArtist[]>
+}
+
+type SongModal = {
+  activeSong: SongWithArtist
+  changeActiveSong: Action<SongModal, SongWithArtist>
+}
 
 type StoreModel = {
-  activeSongs: Song[]
-  activeSong: Song | null
-  changeActiveSongs: Action<StoreModel, Song[]>
-  changeActiveSong: Action<StoreModel, Song>
+  activeSongs: SongWithArtist[]
+  activeSong: SongWithArtist | null
+  changeActiveSongs: Action<SongsModal, SongWithArtist[]>
+  changeActiveSong: Action<SongModal, SongWithArtist>
 }
 
 export const store = createStore<StoreModel>({
@@ -18,3 +30,9 @@ export const store = createStore<StoreModel>({
     state.activeSong = payload
   }),
 })
+
+const typedHooks = createTypedHooks<StoreModel>()
+
+export const { useStoreActions } = typedHooks
+export const { useStoreDispatch } = typedHooks
+export const { useStoreState } = typedHooks

@@ -2,7 +2,8 @@ import GradientLayout from '@components/GradientLayout'
 import SongsTable from '@components/SongsTable'
 import { validateToken } from '@lib/auth'
 import prisma from '@lib/prisma'
-import { Artist, Playlist, Song } from '@prisma/client'
+import { SongWithArtist } from '@lib/store'
+import { Playlist } from '@prisma/client'
 import { GetServerSideProps } from 'next'
 
 export const getServerSideProps: GetServerSideProps<Playlist> = async ({ query, req }) => {
@@ -44,7 +45,7 @@ const getBgColor = (id: number) => {
 }
 type Props = {
   playlist: Playlist & {
-    songs: Song[] & { artists: Artist[] }
+    songs: SongWithArtist[]
   }
 }
 

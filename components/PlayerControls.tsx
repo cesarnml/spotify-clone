@@ -20,12 +20,12 @@ import {
   MdOutlinePauseCircleFilled,
   MdOutlineRepeat,
 } from 'react-icons/md'
-import { useStoreActions } from 'easy-peasy'
-import { Song } from '@prisma/client'
+import { SongWithArtist, useStoreActions } from '@lib/store'
+import { Artist, Song } from '@prisma/client'
 
 type Props = {
-  songs: Song[]
-  activeSong: Song | null
+  songs: SongWithArtist[]
+  activeSong: SongWithArtist | null
 }
 
 const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
@@ -37,7 +37,9 @@ const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
 
   return (
     <Box>
-      <Box>{/* <ReactHowler playing={isPlaying} src={activeSong?.url} /> */}</Box>
+      <Box>
+        <ReactHowler playing={isPlaying} src={activeSong?.url} />
+      </Box>
       <Center color="gray.600">
         <ButtonGroup>
           <IconButton
