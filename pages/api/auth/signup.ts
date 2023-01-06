@@ -27,6 +27,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data | ErrorMes
   try {
     const user = await prisma.user.create({
       data: {
+        firstName: '',
+        lastName: '',
         email,
         password: bcrypt.hashSync(password, salt),
       },
@@ -35,7 +37,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data | ErrorMes
     const payload = {
       id: user.id,
       email: user.email,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
       iat: Date.now(),
