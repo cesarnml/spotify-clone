@@ -1,21 +1,21 @@
 import { Box } from '@chakra-ui/layout'
-import { Table, Thead, Td, Tr, Tbody, Th, IconButton } from '@chakra-ui/react'
-import { BsFillPlayFill } from 'react-icons/bs'
-import { AiOutlineClockCircle } from 'react-icons/ai'
-import { Artist, Song } from '@prisma/client'
-import { FC } from 'react'
+import { IconButton, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { formatDate, formatTime } from '@lib/formatters'
-import { useStoreActions } from '@lib/store'
+import { SongWithArtist, useStoreActions } from '@lib/store'
+import { Song } from '@prisma/client'
+import { FC } from 'react'
+import { AiOutlineClockCircle } from 'react-icons/ai'
+import { BsFillPlayFill } from 'react-icons/bs'
 
 type Props = {
-  songs: (Song & { artist: Artist })[]
+  songs: SongWithArtist[]
 }
 
 const SongsTable: FC<Props> = ({ songs }) => {
   const setActiveSongs = useStoreActions((store) => store.changeActiveSongs)
   const setActiveSong = useStoreActions((store) => store.changeActiveSong)
 
-  const handlePlay = (activeSong?: Song) => {
+  const handlePlay = (activeSong?: SongWithArtist) => {
     setActiveSong(activeSong ?? songs[0])
     setActiveSongs(songs)
   }
