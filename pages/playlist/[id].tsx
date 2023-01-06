@@ -2,11 +2,9 @@ import GradientLayout from '@components/GradientLayout'
 import SongsTable from '@components/SongsTable'
 import { validateToken } from '@lib/auth'
 import prisma from '@lib/prisma'
-import { SongWithArtist } from '@lib/store'
-import { Playlist } from '@prisma/client'
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
-export const getServerSideProps: GetServerSideProps<Playlist> = async ({ query, req }) => {
+export const getServerSideProps: GetServerSideProps = async ({ query, req }) => {
   const token = req.cookies.TRAX_ACCESS_TOKEN
   let userId
 
@@ -43,13 +41,8 @@ const getBgColor = (id: number) => {
   const colors = ['red', 'green', 'blue', 'orange', 'purple', 'gray', 'teal', 'yellow']
   return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)]
 }
-type Props = {
-  playlist: Playlist & {
-    songs: SongWithArtist[]
-  }
-}
 
-const PlaylistPage = ({ playlist }: Props) => {
+const PlaylistPage = ({ playlist }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const color = getBgColor(playlist.id)
 
   return (
