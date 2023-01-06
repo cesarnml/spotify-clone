@@ -58,12 +58,14 @@
 - [x] ~~_Lesson 50_~~ [2023-01-05]
 - [x] ~~_Lesson 51_~~ [2023-01-06]
 - [x] ~~_Lesson 52_~~ [2023-01-06]
-- [ ] Lesson 53
-- [ ] Lesson 54
-- [ ] Lesson 55
+- [x] ~~_Lesson 53_~~ [2023-01-06]
+- [x] ~~_Lesson 54_~~ [2023-01-06]
+- [x] ~~_Lesson 55_~~ [2023-01-06]
 
 ## Notes
 
 - Cool vim trick. `<g C-A>` increment numbers in a visual code block
 - `Y#p` copies a line # times and paste below
 - In Visual mode, hit `at` or `it` to highlight and html tag outer/inner content
+- Scott recommends using GitHub Actions or TravisCI.
+- Tutorial complete.
