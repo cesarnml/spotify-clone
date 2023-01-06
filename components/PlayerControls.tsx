@@ -35,15 +35,38 @@ const getRandomIndex = (num: number) => {
 const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
   const setActiveSong = useStoreActions((state) => state.changeActiveSong)
 
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [playlistIndex, setPlaylistIndex] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [playlistIndex, setPlaylistIndex] = useState(() => songs.findIndex((song) => song.id === activeSong?.id) ?? 0)
   const [isSeeking, setIsSeeking] = useState(false)
   const [seek, setSeek] = useState(0.0)
   const [isRepeat, setIsRepeat] = useState(false)
   const [isShuffle, setIsShuffle] = useState(false)
   const [duration, setDuration] = useState(0)
 
+  const isRepeatRef = useRef(isRepeat)
   const howlerRef = useRef<ReactHowler | null>(null)
+
+  useEffect(() => {
+    isRepeatRef.current = isRepeat
+  }, [isRepeat])
+
+  useEffect(() => {
+    setActiveSong(songs[playlistIndex])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playlistIndex, setActiveSong])
+
+  useEffect(() => {
+    let timerId = 0
+    if (isPlaying && !isSeeking) {
+      const frame = () => {
+        setSeek(howlerRef.current?.seek() ?? 0)
+        timerId = requestAnimationFrame(frame)
+      }
+      timerId = requestAnimationFrame(frame)
+      return () => cancelAnimationFrame(timerId)
+    }
+    cancelAnimationFrame(timerId)
+  }, [isPlaying, isSeeking])
 
   const handleSkipPrevious = () => {
     setPlaylistIndex((prev) => (prev ? prev - 1 : songs.length - 1))
@@ -62,7 +85,7 @@ const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
   }
 
   const onEnd = () => {
-    if (isRepeat) {
+    if (isRepeatRef.current) {
       setSeek(0)
       howlerRef.current?.seek(0)
     } else {
@@ -75,15 +98,10 @@ const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
     setDuration(songDuration)
   }
 
-  const onSeek = (e: any) => {
-    setSeek(parseFloat(e[0]))
+  const onSeek = (e: number[]) => {
+    setSeek(e[0])
     howlerRef.current?.seek(e[0])
   }
-
-  useEffect(() => {
-    setActiveSong(songs[playlistIndex])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playlistIndex, setActiveSong])
 
   if (!activeSong) return null
 
@@ -152,7 +170,7 @@ const PlayerControls: FC<Props> = ({ songs, activeSong }) => {
       <Box color="gray.600">
         <Flex justify="center" alignItems="center">
           <Box width="10%">
-            <Text fontSize="xs">Time</Text>
+            <Text fontSize="xs">{formatTime(seek)}</Text>
           </Box>
           <Box width="80">
             <RangeSlider
